@@ -262,9 +262,9 @@ clean_v1 <- function (datafile, antibodies = NULL, exclude = TRUE){
   lcr_messy$dif <- as.character(lcr_messy$dif)
 
 
-  lcr_messy$boc[!str_detect(lcr_messy$boc, "")] <- NA
-  lcr_messy$cel[!str_detect(lcr_messy$cel, "")] <- NA
-  lcr_messy$prot[!str_detect(lcr_messy$prot, "")] <- NA
+  lcr_messy <- lcr_messy %>%
+    mutate(across(c(boc, cel, prot),
+                ~ na_if(str_trim(.), "")))
 
 
   correct_prot <- str_extract(lcr_messy$prot, "^\\d{1,3}[\\. ,]?\\d{0,3}$")
