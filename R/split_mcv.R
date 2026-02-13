@@ -11,26 +11,24 @@
 
 
 
-split_mcv <- function (var,n,dataf) {
-  # Check if n is integer
-  if (!is.numeric(n)){
-    return(print("Por favor insira um valor valido para n"))
-  }
-  if (!is.wholenumber(n)) {
-    return(print("Por favor insira um valor valido para n"))
-    }
+split_mcv <- function (var, n, dataf) {
+
+  # garante que n é inteiro
+  n <- suppressWarnings(as.integer(n))
+  if (is.na(n) || n <= 0) stop("Por favor insira um valor válido para n (inteiro > 0).")
+
+  charc <- as.character(dataf[[var]])
 
   # Main
-  charc <- as.character(dataf[[var]])
-  split <- str_split_fixed(charc, ",", as.character(n))
-  df <- as.data.frame(split)
-  # Change to numeric
-  ncol = as.numeric(n)
-  for (i in 1:n){
-    df[,i] <- as.numeric(df[,i])
-    df[,i]
-    df[,i][is.na(df[,i])] <- 0
+  split <- stringr::str_split_fixed(charc, ",", n)
+
+  df <- as.data.frame(split, stringsAsFactors = FALSE)
+
+  for (i in 1:n) {
+    df[, i] <- as.numeric(df[, i])
+    df[, i][is.na(df[, i])] <- 0
   }
+
   return(df)
 }
 
