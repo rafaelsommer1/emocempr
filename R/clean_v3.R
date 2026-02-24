@@ -303,10 +303,16 @@ clean_v3 <- function(datafile){
         # Cleaning LCR strings
 
         # Input NAs
-        emocempv3$lcr_boc[!str_detect(emocempv3$lcr_boc,"")] <- NA
-        emocempv3$lcr_cel[!str_detect(emocempv3$lcr_cel,"")] <- NA
-        emocempv3$lcr_prot[!str_detect(emocempv3$lcr_prot,"")] <- NA
-        emocempv3$lcr_igg_i[!str_detect(emocempv3$lcr_igg_i,"")] <- NA
+          emocempv3$lcr_boc   <- stringr::str_squish(emocempv2$lcr_boc)
+          emocempv3$lcr_cel   <- stringr::str_squish(emocempv2$lcr_cel)
+          emocempv3$lcr_prot  <- stringr::str_squish(emocempv2$lcr_prot)
+          emocempv3$lcr_igg_i <- stringr::str_squish(emocempv2$lcr_igg_i)
+          
+          emocempv3$lcr_boc[emocempv2$lcr_boc == ""] <- NA
+          emocempv3$lcr_cel[emocempv2$lcr_cel == ""] <- NA
+          emocempv3$lcr_prot[emocempv2$lcr_prot == ""] <- NA
+          emocempv3$lcr_igg_i[emocempv2$lcr_igg_i == ""] <- NA
+  
 
         # Clean strings
         # Protein
