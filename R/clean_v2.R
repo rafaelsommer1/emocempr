@@ -295,11 +295,16 @@ clean_v2 <- function (datafile) {
         # Cleaning LCR strings
 
                 # Input NAs
-                emocempv2$lcr_boc[!str_detect(emocempv2$lcr_boc,"")] <- NA
-                emocempv2$lcr_cel[!str_detect(emocempv2$lcr_cel,"")] <- NA
-                emocempv2$lcr_prot[!str_detect(emocempv2$lcr_prot,"")] <- NA
-                emocempv2$lcr_igg_i[!str_detect(emocempv2$lcr_igg_i,"")] <- NA
-
+                  emocempv2$lcr_boc   <- stringr::str_squish(emocempv2$lcr_boc)
+                  emocempv2$lcr_cel   <- stringr::str_squish(emocempv2$lcr_cel)
+                  emocempv2$lcr_prot  <- stringr::str_squish(emocempv2$lcr_prot)
+                  emocempv2$lcr_igg_i <- stringr::str_squish(emocempv2$lcr_igg_i)
+          
+                  emocempv2$lcr_boc[emocempv2$lcr_boc == ""] <- NA
+                  emocempv2$lcr_cel[emocempv2$lcr_cel == ""] <- NA
+                  emocempv2$lcr_prot[emocempv2$lcr_prot == ""] <- NA
+                  emocempv2$lcr_igg_i[emocempv2$lcr_igg_i == ""] <- NA
+  
                 # Clean strings
                 # Protein
                 emocempv2$lcr_prot <- str_extract(emocempv2$lcr_prot,
