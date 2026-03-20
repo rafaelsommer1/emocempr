@@ -286,10 +286,10 @@ clean_v1 <- function (datafile, antibodies = NULL, exclude = TRUE){
 
 
   # Z-Score and nutritional status
-  emocemp <- emocemp %>%
-    mutate(altura_cm = altura * 100) %>%
-    mutate(idade_dias = idade_visita1 * 365.25) %>%
-    mutate(sex_coded = ifelse(sex == "m", 1, 2))
+ emocemp <- emocemp %>%
+   mutate(altura_cm = altura * 100) %>%
+   mutate(idade_dias = as.numeric(data_visita - nascimento)) %>%
+   mutate(sex_coded = ifelse(sex == "m", 1, 2))
 
    emocemp <- zscorer::addWGSR(emocemp, sex="sex_coded",
                                    firstPart="peso",
